@@ -111,3 +111,23 @@ predicted_mnb_stemmed = text_mnb_stemmed.predict(test_strings)
 print("NLTK Performance:")
 print(classification_report(test_label,predicted_mnb_stemmed))
 
+# MLP Classification
+from sklearn.neural_network import MLPClassifier
+mlp_clf = Pipeline([('vect', CountVectorizer()), ('tfidf', TfidfTransformer()),
+                         ('clf-mlp', MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1))])
+mlp_clf.fit(strings, label)
+
+predicted_mlp = mlp_clf.predict(test_strings)
+print("MLP Performance:")
+print(classification_report(test_label, predicted_mlp))
+
+# Decison Tree
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+dt_clf = Pipeline([('vect', CountVectorizer()), ('tfidf', TfidfTransformer()),
+                         ('clf-dt', tree.DecisionTreeClassifier())])
+dt_clf.fit(strings, label)
+
+predicted_dt = dt_clf.predict(test_strings)
+print("Decision Tree Preformance")
+print(classification_report(test_label, predicted_dt))
