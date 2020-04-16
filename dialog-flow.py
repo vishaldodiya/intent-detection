@@ -182,7 +182,7 @@ def main():
     accuracy = {}
     confidence = {}
     for k in dic_test.keys():
-        acc, conf = detect_intent_with_sentiment_analysis(API_USER_NAME, "12", dic_test[k][1:5], k, "en")
+        acc, conf = detect_intent_with_sentiment_analysis(API_USER_NAME, "12", dic_test[k], k, "en")
 
         accuracy[k] = acc
         confidence[k] = conf
