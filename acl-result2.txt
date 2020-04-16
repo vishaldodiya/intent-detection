@@ -1,0 +1,83 @@
+total length:  2053
+0.526829268292683
+/Users/pushparaj/Developer/SWM/intent-detection/venv/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1272: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+NB Classification Report:
+  _warn_prf(average, modifier, msg_start, len(result))
+                   precision    recall  f1-score   support
+
+       Background       0.52      1.00      0.69       106
+CompareOrContrast       0.00      0.00      0.00        36
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         9
+             Uses       1.00      0.05      0.10        40
+
+         accuracy                           0.53       205
+        macro avg       0.25      0.18      0.13       205
+     weighted avg       0.47      0.53      0.37       205
+
+0.7414634146341463
+SVM Classification Report:
+                   precision    recall  f1-score   support
+
+       Background       0.74      0.96      0.84       106
+CompareOrContrast       0.78      0.39      0.52        36
+          Extends       0.62      0.71      0.67         7
+           Future       1.00      0.29      0.44         7
+       Motivation       0.67      0.22      0.33         9
+             Uses       0.75      0.68      0.71        40
+
+         accuracy                           0.74       205
+        macro avg       0.76      0.54      0.58       205
+     weighted avg       0.75      0.74      0.71       205
+
+Grid Search Performance:
+                   precision    recall  f1-score   support
+
+       Background       0.81      0.90      0.85       106
+CompareOrContrast       0.72      0.58      0.65        36
+          Extends       0.62      0.71      0.67         7
+           Future       1.00      0.71      0.83         7
+       Motivation       0.57      0.44      0.50         9
+             Uses       0.67      0.65      0.66        40
+
+         accuracy                           0.76       205
+        macro avg       0.73      0.67      0.69       205
+     weighted avg       0.76      0.76      0.76       205
+
+0.7222676334871456
+{'clf__alpha': 0.01, 'tfidf__use_idf': False, 'vect__ngram_range': (1, 2)}
+Grid Search Performance for SVM:
+                   precision    recall  f1-score   support
+
+       Background       0.76      0.96      0.85       106
+CompareOrContrast       0.74      0.47      0.58        36
+          Extends       0.67      0.86      0.75         7
+           Future       1.00      0.57      0.73         7
+       Motivation       0.60      0.33      0.43         9
+             Uses       0.83      0.62      0.71        40
+
+         accuracy                           0.77       205
+        macro avg       0.77      0.64      0.67       205
+     weighted avg       0.77      0.77      0.75       205
+
+0.719556141507361
+{'clf-svm__alpha': 0.001, 'tfidf__use_idf': True, 'vect__ngram_range': (1, 2)}
+[nltk_data] Downloading package stopwords to
+[nltk_data]     /Users/pushparaj/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+/Users/pushparaj/Developer/SWM/intent-detection/venv/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1272: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+NLTK Performance:
+  _warn_prf(average, modifier, msg_start, len(result))
+                   precision    recall  f1-score   support
+
+       Background       0.56      0.97      0.71       106
+CompareOrContrast       0.80      0.11      0.20        36
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         9
+             Uses       0.60      0.23      0.33        40
+
+         accuracy                           0.57       205
+        macro avg       0.33      0.22      0.21       205
+     weighted avg       0.55      0.57      0.46       205
