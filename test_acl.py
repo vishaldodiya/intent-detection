@@ -1,7 +1,8 @@
 import pickle
-import pandas as pd
 import numpy as np
 from sklearn.metrics import classification_report
+from random import shuffle
+import pandas as pd
 from sklearn.model_selection import KFold
 
 
@@ -19,8 +20,14 @@ def main():
     # print(labels)
     # print(cite_context)
 
+    final = list(zip(labels, cite_context))
+    shuffle(final)
+    labels, cite_context = zip(*final)
+
     print("total length: ", len(citations))
-    split_index = int(len(citations) * .9)
+    split_percent = 0.7
+    split_index = int(len(citations) * split_percent)
+    print("train split percentage: ", split_percent)
     train_silce = slice(0, split_index)
     test_silce = slice(split_index, len(citations) - 1)
     # kf = KFold(n_splits=10)
