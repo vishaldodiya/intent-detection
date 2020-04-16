@@ -7,7 +7,7 @@ import pickle
 
 def get_all_files():
     files = []
-    for root, dirnames, filenames in os.walk("acl"):
+    for root, dirnames, filenames in os.walk("data"):
         for filename in fnmatch.filter(filenames, '*.json'):
             # if 'W06-3319' in filename:
             files.append(os.path.join(root, filename))
@@ -17,7 +17,9 @@ def get_all_files():
     return files
 
 
-def get_string_and_label(files = []):
+def get_string_and_label(files=None):
+    if files is None:
+        files = []
     citations = []
     labels = []
     cite_context = []
