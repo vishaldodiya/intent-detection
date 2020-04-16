@@ -1,0 +1,83 @@
+total length:  2053
+0.5073170731707317
+NB Classification Report:
+/Users/pushparaj/Developer/SWM/intent-detection/venv/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1272: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+                   precision    recall  f1-score   support
+
+       Background       0.51      1.00      0.67       104
+CompareOrContrast       0.00      0.00      0.00        45
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         8
+             Uses       0.00      0.00      0.00        34
+
+         accuracy                           0.51       205
+        macro avg       0.08      0.17      0.11       205
+     weighted avg       0.26      0.51      0.34       205
+
+
+0.48292682926829267
+SVM Classification Report:
+  _warn_prf(average, modifier, msg_start, len(result))
+                   precision    recall  f1-score   support
+
+       Background       0.51      0.95      0.66       104
+CompareOrContrast       0.00      0.00      0.00        45
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         8
+             Uses       0.00      0.00      0.00        34
+
+         accuracy                           0.48       205
+        macro avg       0.08      0.16      0.11       205
+     weighted avg       0.26      0.48      0.34       205
+
+Grid Search Performance:
+                   precision    recall  f1-score   support
+
+       Background       0.49      0.93      0.64       104
+CompareOrContrast       0.00      0.00      0.00        45
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         8
+             Uses       0.00      0.00      0.00        34
+
+         accuracy                           0.47       205
+        macro avg       0.08      0.16      0.11       205
+     weighted avg       0.25      0.47      0.33       205
+
+0.43259649893796237
+{'clf__alpha': 0.01, 'tfidf__use_idf': False, 'vect__ngram_range': (1, 1)}
+Grid Search Performance for SVM:
+                   precision    recall  f1-score   support
+
+       Background       0.51      1.00      0.67       104
+CompareOrContrast       0.00      0.00      0.00        45
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         8
+             Uses       0.00      0.00      0.00        34
+
+         accuracy                           0.51       205
+        macro avg       0.08      0.17      0.11       205
+     weighted avg       0.26      0.51      0.34       205
+
+0.5089343001538124
+{'clf-svm__alpha': 0.01, 'tfidf__use_idf': True, 'vect__ngram_range': (1, 1)}
+[nltk_data] Downloading package stopwords to
+[nltk_data]     /Users/pushparaj/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+NLTK Performance:
+                   precision    recall  f1-score   support
+
+       Background       0.51      1.00      0.67       104
+CompareOrContrast       0.00      0.00      0.00        45
+          Extends       0.00      0.00      0.00         7
+           Future       0.00      0.00      0.00         7
+       Motivation       0.00      0.00      0.00         8
+             Uses       0.00      0.00      0.00        34
+
+         accuracy                           0.51       205
+        macro avg       0.08      0.17      0.11       205
+     weighted avg       0.26      0.51      0.34       205
