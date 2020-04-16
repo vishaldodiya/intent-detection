@@ -1,30 +1,52 @@
+
 '''
+###############################################
 Final Project Code
 Intent Detection
 (using Google's DialogFlow)
 CSE573 Semantic Web Mining
 @Author: Tariq M Nasim
+###############################################
+'''
+
+
+'''
+-----------------------------------------------------------------------------------------------------
+In order to run this code, you need to
+- have access to a project created in DialogFlow
+- configure corresponding access in Google Cloud Platform (GCP) console
+- have API access information saved in your computer's environment.
+
+In this code, replace the API_USER_NAME with your DialogFlow project_id.
+
+Resources:
+- DialogFlow Basics: https://cloud.google.com/dialogflow/docs/basics
+- GCP, Services and Access control: https://cloud.google.com/dialogflow/docs/quick/setup
+- Intent Management: https://cloud.google.com/dialogflow/docs/manage-intents
+-----------------------------------------------------------------------------------------------------
 '''
 
 from time import sleep
 import pandas as pd
-import numpy as np
-import re
 import dialogflow_v2 as dialogflow
 
 API_USER_NAME = "tnasim-byppov"
 
 DEV_FILE_PATH = "dev.json"
 TEST_FILE_PATH = "test.json"
+
+# Delay between each intent detection API call.
+# This is necessary for "Standard" version of GCP access.
+# Otherwise Google will block the API calls after a few calls
+DELAY = 1.0
+
+# These two are also important. Otherwise the API calls throw error
 TRAINING_PHRASE_LEN_LIMIT = 767
+MAX_LEN_OF_INTENT_QUERY = 256
 
 def detect_intent_with_sentiment_analysis(project_id, session_id, texts, label,
                                           language_code):
-    """Returns the result of detect intent with texts as inputs and analyzes the
-    sentiment of the query text.
 
-    Using the same `session_id` between requests allows continuation
-    of the conversation."""
     session_client = dialogflow.SessionsClient()
 
     session_path = session_client.session_path(project_id, session_id)
@@ -35,7 +57,7 @@ def detect_intent_with_sentiment_analysis(project_id, session_id, texts, label,
     total_queries = len(texts)
 
     for text in texts:
-        if len(text) > 256:
+        if len(text) > MAX_LEN_OF_INTENT_QUERY:
             total_queries = total_queries - 1
             continue
 
@@ -74,17 +96,18 @@ def detect_intent_with_sentiment_analysis(project_id, session_id, texts, label,
         print('Query Text Sentiment Magnitude: {}\n'.format(
             response.query_result.sentiment_analysis_result
             .query_text_sentiment.magnitude))
-        sleep(1.0)
+
+        sleep(DELAY)
 
     return correct_assumption_count/total_queries, average_confidence/total_queries
 
 
-'''
-Creates an intent with provided name and training phrases (and response messages)
-'''
+
 def create_intent(project_id, display_name, training_phrases_parts,
                   message_texts):
-    """Create an intent of the given intent type."""
+    """
+    Creates an intent with provided name and training phrases (and response messages)
+    """
     intents_client = dialogflow.IntentsClient()
 
     parent = intents_client.project_agent_path(project_id)
@@ -142,48 +165,24 @@ def read_data(file_path):
 
     return dic
 
-def read_test_data(file_path):
-    # Using readlines()
-    file1 = open(file_path, 'r')
-    Lines = file1.readlines()
-
-    strings = []
-    label = []
-
-    # Strips the newline character
-    for line in Lines:
-        jd = eval(line.strip().replace(": true,", ": True,").replace(": false,", ": False,").replace("NaN", "None"))
-        strings.append(jd["string"])
-        label.append(jd["label"])
-
-    dic = {}
-    for i in range(len(strings)):
-        # remove training phrases if len > the limit
-        if len(strings[i]) == 0 or len(strings[i]) > TRAINING_PHRASE_LEN_LIMIT:
-            continue
-
-        if label[i] in dic:
-            dic[label[i]].append(strings[i])
-        else:
-            dic[label[i]] = [strings[i]]
-
-    return dic
-
-
 def main():
+
+    # THE FOLLOWING LINES CAN BE USED FOR REGISTERING THE INTENTS ON THE DIALOGFLOW PROJECT
+    # ------------------------------------------------------------------------------------------
     # dic_train = read_data(DEV_FILE_PATH)
     # create_all_intents(dic_train)
+    # ------------------------------------------------------------------------------------------
 
-    dic_test = read_test_data(TEST_FILE_PATH)
+    dic_test = read_data(TEST_FILE_PATH)
     print(dic_test.keys())
 
-    # for k in dic_test.keys():
-    #     print(k, ": ", len(dic_test[k]))
+    for k in dic_test.keys():
+        print(k, ": ", len(dic_test[k]))
 
     accuracy = {}
     confidence = {}
     for k in dic_test.keys():
-        acc, conf = detect_intent_with_sentiment_analysis("tnasim-byppov", "12", dic_test[k][0:255], k, "en")
+        acc, conf = detect_intent_with_sentiment_analysis(API_USER_NAME, "12", dic_test[k][1:5], k, "en")
 
         accuracy[k] = acc
         confidence[k] = conf
@@ -193,6 +192,9 @@ def main():
 
 
 
+    # ------------------------------------------------------------------------------------------
+    # ROUGH CODE
+    # ------------------------------------------------------------------------------------------
     # create_intent(API_USER_NAME,
     #               "method",
     #               dic["method"],
