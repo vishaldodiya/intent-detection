@@ -66,6 +66,7 @@ gs_clf = gs_clf.fit(strings, label)
 predicted_gs = gs_clf.predict(test_strings)
 print("Grid Search Performance:")
 print(classification_report(test_label,predicted_gs))
+print("---------- Grid Search NB Best Params ---------")
 print(gs_clf.best_score_)
 print(gs_clf.best_params_)
 
@@ -78,6 +79,7 @@ gs_clf_svm = gs_clf_svm.fit(strings, label)
 predicted_gs_svm = gs_clf_svm.predict(test_strings)
 print("Grid Search Performance for SVM:")
 print(classification_report(test_label,predicted_gs_svm))
+print("-------- Grid Serach SVM Best Params --------")
 print(gs_clf_svm.best_score_)
 print(gs_clf_svm.best_params_)
 
@@ -114,7 +116,7 @@ print(classification_report(test_label,predicted_mnb_stemmed))
 # MLP Classification
 from sklearn.neural_network import MLPClassifier
 mlp_clf = Pipeline([('vect', CountVectorizer()), ('tfidf', TfidfTransformer()),
-                         ('clf-mlp', MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1))])
+                         ('clf-mlp', MLPClassifier(solver='adam', alpha=1e-3, random_state=42))])
 mlp_clf.fit(strings, label)
 
 predicted_mlp = mlp_clf.predict(test_strings)
